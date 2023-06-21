@@ -1,0 +1,259 @@
+<?php
+if ($flag == 'INVESTASI') {
+    $tag =  'Aset Investasi';
+}elseif ($flag == 'BUKAN INVESTASI'){
+    $tag =  'Aset Bukan Investasi'; 
+}elseif ($flag == 'KEWAJIBAN'){
+    $tag =  'Kewajiban'; 
+}else {
+    $tag =  'Dana Bersih';
+}
+
+?>
+<div class="row">
+    <div class="col-md-12">
+        <div class="nav-tabs-custom">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <?php if ($kode_invest != '') :?>
+                    <h3 class="box-title"><?= $nama_invest['jenis_investasi'];?></h3>
+                    <?php else: ?>
+                    <h3 class="box-title"><?= $tag; ?></h3>
+                    <?php endif; ?>
+                </div>
+                <div class="box-body" style="overflow-x:auto;">
+                    <div id="container-d1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php if ($flag == 'INVESTASI') :?>
+    <?php if ($kode_invest != '') :?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="nav-tabs-custom">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Detail Data Investasi Per Pihak Jenis Investasi</h3>
+                    </div>
+                    <div class="box-body" style="overflow-x:auto;">
+                        <table id="example" class="table table-responsive table-bordered table-hover">
+                            <tr>
+                                <th rowspan ="2">Nama Pihak</th>
+                                <th colspan="<?=$count1;?>">Bulan</th>
+                                <th colspan="2">Pertumbuhan</th>
+                            </tr>
+                            <tr>
+                                <?php foreach($bln_thn1 as $bln): ?>
+                                    <th><?php echo $bln??'-'; ?></th>
+                                <?php endforeach; ?>
+                                <th>Nominal</th>
+                                <th>Persentase</th>
+                            </tr>
+                            <?php foreach($data1 as $date => $userData): 
+                                $nom =  $userData[$last1] - $userData[$first1];
+                                $pers = $nom/$userData[$first1];
+                                $pers = (!is_nan($pers) && !is_infinite($pers) ? $pers : '0,00');
+                                ?>
+                                <tr style="<?php if ($userData['uraian'] == 'JUMLAH'){echo 'font-weight: bold; background-color: #ddd;';}?>">
+                                    <td style="text-align: left;"><?= $userData['uraian']; ?></td>
+                                    <?php foreach($names as $name): ?>
+                                        <td><?= rupiah($userData[$name])??'-'; ?></td>
+                                    <?php endforeach; ?>
+                                    <td><?= rupiah($nom)??'-';?></td>
+                                    <td><?= persen($pers).'%';?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php else: ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="nav-tabs-custom">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Detail Data</h3>
+                    </div>
+                    <div class="box-body" style="overflow-x:auto;">
+                        <table id="example" class="table table-responsive table-bordered table-hover">
+                            <tr>
+                                <th rowspan ="2">Jenis Investasi</th>
+                                <?php foreach($bln_thn as $bln): ?>
+                                    <th colspan="3"><?php echo $bln??'-'; ?></th>
+                                <?php endforeach; ?>
+                                <th colspan="2">Pertumbuhan</th>
+                            </tr>
+                            <tr>
+                                <?php foreach($bln_thn as $bln): ?>
+                                    <th>Nilai Investasi</th>
+                                    <th>Porsi</th>
+                                    <th>Capaian Nilai Atas RIT</th>
+                                <?php endforeach; ?>
+                                <th>Nominal</th>
+                                <th>Persentase</th>
+                            </tr>
+                            <?php foreach($data as $date => $userData): 
+                                $nom =  $userData[$last] - $userData[$first];
+                                $pers = $nom/$userData[$first];
+                                $pers = (!is_nan($pers) && !is_infinite($pers) ? $pers : '0,00');
+                                ?>
+                                <tr style="<?php if ($userData['uraian'] == 'JUMLAH'){echo 'font-weight: bold; background-color: #ddd;';}?>">
+                                    <td style="text-align: left;"><?= $userData['uraian']; ?></td>
+                                    <?php foreach($names as $name): ?>
+                                        <td><?= rupiah($userData[$name])??'-'; ?></td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    <?php endforeach; ?>
+                                    <td><?= rupiah($nom)??'-';?></td>
+                                    <td><?= persen($pers).'%';?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="nav-tabs-custom">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Detail Data Investasi Per Pihak</h3>
+                    </div>
+                    <div class="box-body" style="overflow-x:auto;">
+                        <table id="example" class="table table-responsive table-bordered table-hover">
+                            <tr>
+                                <th rowspan ="2">Nama Pihak</th>
+                                <?php foreach($bln_thn1 as $bln): ?>
+                                    <th colspan="2"><?php echo $bln??'-'; ?></th>
+                                <?php endforeach; ?>
+                                <th colspan="2">Pertumbuhan</th>
+                            </tr>
+                            <tr>
+                                <?php foreach($bln_thn1 as $bln): ?>
+                                <th>Nominal</th>
+                                <th>Persentase</th>
+                                <?php endforeach; ?>
+                                <th>Nominal</th>
+                                <th>Persentase</th>
+                            </tr>
+                            <?php foreach($data1 as $date => $userData): 
+                                $nom =  $userData[$last1] - $userData[$first1];
+                                $pers = $nom/$userData[$first1];
+                                $pers = (!is_nan($pers) && !is_infinite($pers) ? $pers : '0,00');
+                                ?>
+                                <tr style="<?php if ($userData['uraian'] == 'JUMLAH'){echo 'font-weight: bold; background-color: #ddd;';}?>">
+                                    <td style="text-align: left;"><?= $userData['uraian']; ?></td>
+                                    <?php foreach($names as $name): ?>
+                                        <td><?= rupiah($userData[$name])??'-'; ?></td>
+                                        <td>-</td>
+                                    <?php endforeach; ?>
+                                    <td><?= rupiah($nom)??'-';?></td>
+                                    <td><?= persen($pers).'%';?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+<?php else: ?>
+<div class="row">
+    <div class="col-md-12">
+        <div class="nav-tabs-custom">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Detail Data</h3>
+                </div>
+                <div class="box-body" style="overflow-x:auto;">
+                    <table id="example" class="table table-responsive table-bordered table-hover">
+                        <tr>
+                            <th rowspan ="2">Jenis Investasi</th>
+                            <th colspan="<?=$count;?>">Bulan</th>
+                            <th colspan="2">Pertumbuhan</th>
+                        </tr>
+                        <tr>
+                            <?php foreach($bln_thn as $bln): ?>
+                                <th><?php echo $bln??'-'; ?></th>
+                            <?php endforeach; ?>
+                            <th>Nominal</th>
+                            <th>Persentase</th>
+                        </tr>
+                        <?php foreach($data as $date => $userData): 
+                            $nom =  $userData[$last] - $userData[$first];
+                            $pers = $nom/$userData[$first];
+                            $pers = (!is_nan($pers) && !is_infinite($pers) ? $pers : '0,00');
+                            ?>
+                            <tr style="<?php if ($userData['uraian'] == 'JUMLAH'){echo 'font-weight: bold; background-color: #ddd;';}?>">
+                                <td style="text-align: left;"><?= $userData['uraian']; ?></td>
+                                <?php foreach($names as $name): ?>
+                                    <td><?= rupiah($userData[$name])??'-'; ?></td>
+                                <?php endforeach; ?>
+                                <td><?= rupiah($nom)??'-';?></td>
+                                <td><?= persen($pers).'%';?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+
+
+<script type="text/javascript">
+    var par = {};
+    var iduser = $('#iduser').val();
+
+    var bln_awal= $('#bln_awal').val();
+    var tahun_awal= $('#tahun_awal').val();
+    var bln_akhir= $('#bln_akhir').val();
+    var tahun_akhir= $('#tahun_akhir').val();
+    var ds= $('#dashboard').val();
+    var kode_invest= $('#detail_invest').val();
+
+    par[[csrf_token]] = csrf_hash;
+
+    $.post(host+'dashboard-display/summary_dana_bersih_invest', {[csrf_token]:csrf_hash, 'id_bulan':id_bulan, 'iduser':iduser,'bln_awal':bln_awal,'bln_akhir':bln_akhir,'tahun_awal':tahun_awal,'tahun_akhir':tahun_akhir,'dashboard':ds,'detail_invest':kode_invest}, function(resp){
+        if(resp){
+            parsing = JSON.parse(resp);
+            var xChart = parsing.arr_bln;
+
+            var yChart1 = [
+            {
+                name: '(Jumlah Dalam Rupiah)',
+                color: {
+                    linearGradient: {
+                        x1: 0,
+                        x2: 0,
+                        y1: 1,
+                        y2: 0
+                    },
+                    stops: [
+                    [0, '#e93981'],
+                    [1, '#3058ac']
+                    ]
+                },
+                data: parsing.nilai,
+            }];
+            genLineChart("container-d1", "", xChart, yChart1, "", "", "Nominal (Rp)", false);
+        }
+    });
+
+
+
+$(".select2nya").select2( { 'width':'100%' } );
+$('.tahun').text(tahun);
+</script>

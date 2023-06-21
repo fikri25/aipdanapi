@@ -1,0 +1,9 @@
+Ketentuan Menggunakan SMART AIP
+
+1. Login Sesuai Tahun Anggaran yg sudah ditentukan.
+2. Laporan bulanan :
+	a. Parameter filter laporan bulan menggunakan session id_bulan,
+	b. Dalam sekali input laporan harus meyelesaikan semua laporan bulan sesuai kebutuhan (selesaikan semua laporan input perbulan terlebihdahulu),
+	c. Hindari langsung berpidah laporan bulan ketika ada (di point b), dengan klik new tab menu laporan bulanan, karena akan mengacaukan proses ( point a & b),
+	d. Ketika akan berpindah Laporan bulanan, misal dari bulan 1 ke bulan 2, (tutup semua tab yang ada dibulan 1 kemudian pilih bulan sesuai kebutuhan laporan).
+	
