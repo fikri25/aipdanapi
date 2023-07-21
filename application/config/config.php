@@ -390,7 +390,8 @@ $config['sess_regenerate_destroy'] = TRUE;
 $config['cookie_prefix']	= '';
 $config['cookie_domain']	= '';
 $config['cookie_path']		= '/';
-$config['cookie_secure']	= TRUE;  //diubah dari false ke true utk penutupan celah
+// $config['cookie_secure']	= TRUE;  //diubah dari false ke true utk penutupan celah karna menggunakan https
+$config['cookie_secure']	= FALSE;  //diubah karna menggunakan http
 $config['cookie_httponly'] 	= TRUE;
 
 /*
